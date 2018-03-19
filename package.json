@@ -25,7 +25,8 @@
     "passport-oauth": "^1.0.0",
     "randomstring": "^1.1.5",
     "sequelize": "^4.31.2",
-    "twilio": "^3.11.2"
+    "twilio": "^3.11.2",
+    "xml-js": "^1.6.2"
   },
   "devDependencies": {
     "nodemon": "^1.14.11",
