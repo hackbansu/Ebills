@@ -22,11 +22,23 @@ route.use('/fileupload', function (req, res, next) {
 });
 
 route.use('/fileupload', function (req, res) {
-    var newpath = './upload/myfile.xml';
-    fs.writeFile(newpath, req.text, function (err) {
-        if (err) throw err;
+    let isXML = true;
+    let newPath = './upload/abc.xml';
+    if (req.text.charAt(1) !== 'E') {
         res.write('File uploaded and moved!');
         res.end();
+        isXML = false;
+        let htmlData = req.text;
+        let jsonData = require("./upload/abc.json");
+        let pdfLink = "/pdf/abc.pdf";
+
+        notify(jsonData, pdfLink, html, tokens, function (err) {
+            console.log("notifications sent");
+        });
+    }
+
+    fs.writeFile(newpath, req.text, function (err) {
+        if (err) throw err;
         console.log('File written!');
 
         //xml to json
@@ -39,15 +51,21 @@ route.use('/fileupload', function (req, res) {
                 state: d[1]["COMPANY"]["REMOTECMPINFO.LIST"]["REMOTECMPNAME"]["REMOTECMPSTATE"]
             },
             buyer: {
-
+                name: d[0]["VOUCHER"]["LEDGERENTRIES.LIST"]["LEDGERNAME"]
             },
-            products:{
-
+            invoice: {
+                amount: d[0]["VOUCHER"]["LEDGERENTRIES.LIST"]["AMOUNT"],
+                date: d[0]["VOUCHER"]["DATE"],
+                products: d[0]["VOUCHER"]["ALLINVENTORYENTRIES.LIST"]
             }
-        }
+        };
 
-        //notify on android
-        notify();
+        fs.writeFile("./upload/abc.json", updatedJsonData, function (err) {
+            if (err) throw err;
+            res.write('File uploaded and moved!');
+            res.end();
+            console.log('File written!');
+        })
     });
 });
 
