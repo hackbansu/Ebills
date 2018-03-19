@@ -1,8 +1,8 @@
 const Router = require("express").Router;
 const route = Router();
 var fs = require('fs');
-const notify = require("../generic/index")
-
+const notify = require("./notify");
+const convert = require('xml-js');
 const bodyParser = require('body-parser');
 {
     app.use(bodyParser.json());
@@ -29,7 +29,23 @@ route.use('/fileupload', function (req, res) {
         res.end();
         console.log('File written!');
 
+        //xml to json
+        let xmlData = req.text;
+        let jsonData = convert.xml2js(xmlData, {compact: false, spaces: 4});
+        let updatedJsonData = {
+            seller: {
 
+            },
+            buyer: {
+
+            },
+            products:{
+
+            }
+        }
+
+        //notify on android
+        notify();
     });
 });
 
