@@ -10,14 +10,14 @@ const routes = {
     },
 };
 
-route.use(function (req, res, next) {
-    try {
-        req.body = JSON.parse(Object.keys(req.body)[0]);
-    } catch (err) {
-        // req.body = req.body
-    }
-    next();
-});
+// route.use(function (req, res, next) {
+//     try {
+//         req.body = JSON.parse(Object.keys(req.body)[0]);
+//     } catch (err) {
+//         // req.body = req.body
+//     }
+//     next();
+// });
 
 route.get('/api', function (req, res) {
     return res.json({status: true, msg: 'hey you! go ahead :)'});
@@ -25,6 +25,6 @@ route.get('/api', function (req, res) {
 route.use('/api/auth', routes.api.auth);
 route.use('/api/secure', routes.api.secure);
 route.use('/images', express.static(process.env.APP_ROOT + "/app/db/uploads/images"));
-route.use('/pdf', express.static(process.env.APP_ROOT + "/app/routes/secure/functions/upload"));
+route.use('/', express.static(process.env.APP_ROOT + "/app/upload"));
 
 module.exports = route;

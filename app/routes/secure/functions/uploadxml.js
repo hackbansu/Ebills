@@ -2,42 +2,50 @@ const Router = require("express").Router;
 const route = Router();
 var fs = require('fs');
 const notify = require("./notify");
-const convert = require('xml-js');
+const parser = require('xml2json')
+//
+// route.use('/file', function (req, res, next) {
+//     console.log(req.get('Content-Type'));
+//     console.log("handling");
+//     req.text = '';
+//     // req.setEncoding('utf8');
+//     req.on('data', function (chunk) {
+//         req.text += chunk
+//     });
+//     req.on('end', next);
+// });
 
-route.use('/fileupload', function (req, res, next) {
-    console.log(req.get('Content-Type'));
-    console.log("handling");
-    req.text = '';
-    // req.setEncoding('utf8');
-    req.on('data', function (chunk) {
-        req.text += chunk
-    });
-    req.on('end', next);
-});
-
-route.use('/fileupload', function (req, res) {
+route.use('/file', function (req, res) {
     let isXML = true;
     let newPath = './upload/abc.xml';
-    if (req.text.charAt(1) !== 'E') {
-        res.write('File uploaded and moved!');
-        res.end();
-        isXML = false;
-        let htmlData = req.text;
-        let jsonData = require("./upload/abc.json");
-        let pdfLink = "/pdf/abc.pdf";
-        let token = "dPpJrQ0m5J4:APA91bFb_CdN3C2lKTOyVzvr09R1z_j1mrax3Kx2WGQFlZoQAo0F6R4uR1E0YCLWN7D8YEBqlgAA3TCJXqfaSja12cNWQpeClVnjBPiWrKBwLroAEtQ30qDlzPDeo8JSLzVoC5umshan";
-        notify(jsonData, pdfLink, html, token, function (err) {
-            console.log("notifications sent");
-        });
-    }
-
-    fs.writeFile(newpath, req.text, function (err) {
+    // if (req.text[2] !== 'E') {
+    //     res.write('File uploaded and moved!');
+    //     res.end();
+    //     isXML = false;
+    //     let htmlData = req.text;
+    //     let jsonData = require("./upload/abc.json");
+    //     let pdfLink = "/pdf/abc.pdf";
+    //     let token = "dPpJrQ0m5J4:APA91bFb_CdN3C2lKTOyVzvr09R1z_j1mrax3Kx2WGQFlZoQAo0F6R4uR1E0YCLWN7D8YEBqlgAA3TCJXqfaSja12cNWQpeClVnjBPiWrKBwLroAEtQ30qDlzPDeo8JSLzVoC5umshan";
+    //     notify(jsonData, pdfLink, html, token, function (err) {
+    //         console.log("notifications sent");
+    //     });
+    // }
+    res.write('File uploaded and moved!');
+    res.end();
+    fs.writeFile(newPath, req.body, function (err) {
         if (err) throw err;
         console.log('File written!');
 
         //xml to json
-        let xmlData = req.text;
-        let jsonData = convert.xml2js(xmlData, {compact: false, spaces: 4});
+        let xmlData = req.body;
+        console.log(req.body);
+        let jsonData = parser.toJson(xmlData);
+        console.log("Converted");
+        // fs.writeFile("./upload/test.json", jsonData, function (err) {
+        //     console.log("Json saved");
+        // })
+        // return 1;
+        jsonData = JSON.parse(jsonData);
         let d = jsonData["ENVELOPE"]["BODY"]["IMPORTDATA"]["REQUESTDATA"]["TALLYMESSAGE"];
         let updatedJsonData = {
             seller: {
@@ -54,11 +62,24 @@ route.use('/fileupload', function (req, res) {
             }
         };
 
-        fs.writeFile("./upload/abc.json", updatedJsonData, function (err) {
+
+        fs.writeFile("./upload/abc.json", JSON.stringify(updatedJsonData), function (err) {
             if (err) throw err;
-            res.write('File uploaded and moved!');
-            res.end();
-            console.log('File written!');
+            console.log("File written");
+
+            fs.readFile("./upload/abc.html", function (err, data) {
+                if (err) throw err;
+                console.log("HTML File read");
+                let htmlData = "/abc.html";
+                let jsonData = updatedJsonData;
+                let pdfLink = "/abc.pdf";
+                let token = "dPpJrQ0m5J4:APA91bFb_CdN3C2lKTOyVzvr09R1z_j1mrax3Kx2WGQFlZoQAo0F6R4uR1E0YCLWN7D8YEBqlgAA3TCJXqfaSja12cNWQpeClVnjBPiWrKBwLroAEtQ30qDlzPDeo8JSLzVoC5umshan";
+                notify(jsonData, pdfLink, htmlData, token, function (err) {
+                    console.log(err);
+                    console.log("notifications sent");
+                });
+                console.log('File written!');
+            });
         })
     });
 });
