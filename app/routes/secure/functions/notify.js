@@ -22,6 +22,7 @@ module.exports = (json, pdf, html, token, cb) => {
     };
 
     fcm.send(message, function(err, response){
+
         if (err) {
             console.log("Something has gone wrong!");
             cb(err);
