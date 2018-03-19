@@ -18,6 +18,7 @@ const parser = require('xml2json')
 route.use('/file', function (req, res) {
     let isXML = true;
     let newPath = './upload/abc.xml';
+    req.body = fs.readFileSync("./upload/abc.xml")
     // if (req.text[2] !== 'E') {
     //     res.write('File uploaded and moved!');
     //     res.end();
@@ -50,13 +51,13 @@ route.use('/file', function (req, res) {
         let updatedJsonData = {
             seller: {
                 name: d[1]["COMPANY"]["REMOTECMPINFO.LIST"]["REMOTECMPNAME"],
-                state: d[1]["COMPANY"]["REMOTECMPINFO.LIST"]["REMOTECMPNAME"]["REMOTECMPSTATE"]
+                state: d[1]["COMPANY"]["REMOTECMPINFO.LIST"]["REMOTECMPSTATE"]
             },
             buyer: {
-                name: d[0]["VOUCHER"]["LEDGERENTRIES.LIST"]["LEDGERNAME"]
+                name: d[0]["VOUCHER"]["LEDGERENTRIES.LIST"][0]["LEDGERNAME"]
             },
             invoice: {
-                amount: d[0]["VOUCHER"]["LEDGERENTRIES.LIST"]["AMOUNT"],
+                amount: d[0]["VOUCHER"]["LEDGERENTRIES.LIST"][0]["AMOUNT"],
                 date: d[0]["VOUCHER"]["DATE"],
                 products: d[0]["VOUCHER"]["ALLINVENTORYENTRIES.LIST"]
             }
@@ -73,9 +74,9 @@ route.use('/file', function (req, res) {
                 let htmlData = "/abc.html";
                 let jsonData = updatedJsonData;
                 let pdfLink = "/abc.pdf";
-                let token = "dPpJrQ0m5J4:APA91bFb_CdN3C2lKTOyVzvr09R1z_j1mrax3Kx2WGQFlZoQAo0F6R4uR1E0YCLWN7D8YEBqlgAA3TCJXqfaSja12cNWQpeClVnjBPiWrKBwLroAEtQ30qDlzPDeo8JSLzVoC5umshan";
+                let token = "cB9b_tYBnc4:APA91bEesioBNxgH0gWrbNXL0pYJ2ffAaH8Ie8aHVSr6h49013GySDTqvBUXsCZ8iqy57wOnFjocEOCzaxcmD7taTJEwl2khDZp-gaAhx5HbtrAIvQoV82Uhh2ywLTBIbtKNBKrxrUVK";
                 notify(jsonData, pdfLink, htmlData, token, function (err) {
-                    console.log(err);
+                    if(err) throw err;
                     console.log("notifications sent");
                 });
                 console.log('File written!');

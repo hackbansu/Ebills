@@ -16,7 +16,8 @@ module.exports = (json, pdf, html, token, cb) => {
 
         data: {  //you can send only notification or only data(or include both)
             json,
-            pdf
+            pdf,
+            html
         }
     };
 
