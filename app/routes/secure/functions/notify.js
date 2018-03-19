@@ -15,12 +15,14 @@ module.exports = (json, pdf, html, token, cb) => {
         },
 
         data: {  //you can send only notification or only data(or include both)
-            json,
-            pdf
+            json: json,
+            pdf: pdf,
+            html: html
         }
     };
 
     fcm.send(message, function(err, response){
+
         if (err) {
             console.log("Something has gone wrong!");
             cb(err);

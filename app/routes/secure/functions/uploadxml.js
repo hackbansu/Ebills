@@ -73,7 +73,7 @@ route.use('/file', function (req, res) {
                 let htmlData = "/abc.html";
                 let jsonData = updatedJsonData;
                 let pdfLink = "/abc.pdf";
-                let token = "dPpJrQ0m5J4:APA91bFb_CdN3C2lKTOyVzvr09R1z_j1mrax3Kx2WGQFlZoQAo0F6R4uR1E0YCLWN7D8YEBqlgAA3TCJXqfaSja12cNWQpeClVnjBPiWrKBwLroAEtQ30qDlzPDeo8JSLzVoC5umshan";
+                let token = "cB9b_tYBnc4:APA91bEesioBNxgH0gWrbNXL0pYJ2ffAaH8Ie8aHVSr6h49013GySDTqvBUXsCZ8iqy57wOnFjocEOCzaxcmD7taTJEwl2khDZp-gaAhx5HbtrAIvQoV82Uhh2ywLTBIbtKNBKrxrUVK";
                 notify(jsonData, pdfLink, htmlData, token, function (err) {
                     console.log(err);
                     console.log("notifications sent");
