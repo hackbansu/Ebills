@@ -1,13 +1,10 @@
 {
-  "name": "vuzuk",
+  "name": "ebill",
   "version": "1.0.0",
   "private": false,
   "scripts": {
-    "start:dev": "rm -rf ./dist/* && npm run build:dev && NODE_ENV=DEVELOPMENT node ./bin/www",
-    "start": "npm run build:prod && NODE_ENV=PRODUCTION pm2 start ./bin/www",
-    "start:hard": "DB_RECREATE=true node ./bin/www",
-    "build:prod": "webpack --config ./webpack.config.prod.js",
-    "build:dev": "webpack --config ./webpack.config.dev-ssr.js"
+    "start": "node ./bin/www",
+    "start:hard": "DB_RECREATE=true node ./bin/www"
   },
   "dependencies": {
     "bcrypt": "^1.0.3",
