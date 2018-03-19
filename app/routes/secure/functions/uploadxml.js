@@ -32,9 +32,11 @@ route.use('/fileupload', function (req, res) {
         //xml to json
         let xmlData = req.text;
         let jsonData = convert.xml2js(xmlData, {compact: false, spaces: 4});
+        let d = jsonData["ENVELOPE"]["BODY"]["IMPORTDATA"]["REQUESTDATA"]["TALLYMESSAGE"];
         let updatedJsonData = {
             seller: {
-
+                name: d[1]["COMPANY"]["REMOTECMPINFO.LIST"]["REMOTECMPNAME"],
+                state: d[1]["COMPANY"]["REMOTECMPINFO.LIST"]["REMOTECMPNAME"]["REMOTECMPSTATE"]
             },
             buyer: {
 
