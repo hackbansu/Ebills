@@ -1,0 +1,28 @@
+{
+  "DEVELOPMENT": {
+    "use_env_variable": "DATABASE_URL",
+    "maxConcurrentQueries": 100,
+    "dialectOptions": {
+      "ssl": "Amazon RDS"
+    },
+    "pool": {
+      "maxConnections": 5,
+      "maxIdleTime": 30
+    },
+    "language": "en"
+  },
+  "TEST": {
+    "username": "root",
+    "password": "null",
+    "database": "vuzuk",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "PRODUCTION": {
+    "username": "root",
+    "password": "toor",
+    "database": "testdb",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
