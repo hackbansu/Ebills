@@ -1,15 +1,10 @@
 {
   "DEVELOPMENT": {
-    "use_env_variable": "DATABASE_URL",
-    "maxConcurrentQueries": 100,
-    "dialectOptions": {
-      "ssl": "Amazon RDS"
-    },
-    "pool": {
-      "maxConnections": 5,
-      "maxIdleTime": 30
-    },
-    "language": "en"
+    "username": "root",
+    "password": "bansal26",
+    "database": "ebills",
+    "host": "localhost",
+    "dialect": "mysql"
   },
   "TEST": {
     "username": "root",

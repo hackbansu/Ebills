@@ -17,6 +17,7 @@ const routes = require("./app/routes");
 app.use(logger('dev'));
 app.use(cookieParser(process.env.SECRET));
 app.use(bodyParser.json());
+app.use(bodyParser.text());
 app.use(bodyParser.urlencoded({extended: false}));
 
 

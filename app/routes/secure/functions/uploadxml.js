@@ -3,12 +3,6 @@ const route = Router();
 var fs = require('fs');
 const notify = require("./notify");
 const convert = require('xml-js');
-const bodyParser = require('body-parser');
-{
-    app.use(bodyParser.json());
-    app.use(bodyParser.text());
-    app.use(bodyParser.urlencoded({extended: false}));
-}
 
 route.use('/fileupload', function (req, res, next) {
     console.log(req.get('Content-Type'));
@@ -31,8 +25,8 @@ route.use('/fileupload', function (req, res) {
         let htmlData = req.text;
         let jsonData = require("./upload/abc.json");
         let pdfLink = "/pdf/abc.pdf";
-
-        notify(jsonData, pdfLink, html, tokens, function (err) {
+        let token = "dPpJrQ0m5J4:APA91bFb_CdN3C2lKTOyVzvr09R1z_j1mrax3Kx2WGQFlZoQAo0F6R4uR1E0YCLWN7D8YEBqlgAA3TCJXqfaSja12cNWQpeClVnjBPiWrKBwLroAEtQ30qDlzPDeo8JSLzVoC5umshan";
+        notify(jsonData, pdfLink, html, token, function (err) {
             console.log("notifications sent");
         });
     }

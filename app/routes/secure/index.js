@@ -10,6 +10,4 @@ route.use(function (req, res, next) {
     return next();
 });
 
-route.use('/generic', require("./generic"));
-
 module.exports = route;

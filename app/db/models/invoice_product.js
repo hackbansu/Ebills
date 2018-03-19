@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
             }
         },
         count: {
-            type: DataTypes.INT.UNSIGNED,
+            type: DataTypes.INTEGER.UNSIGNED,
             allowNull: false,
             defaultValue: 1,
             validate: {

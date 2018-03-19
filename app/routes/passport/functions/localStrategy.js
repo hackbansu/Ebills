@@ -19,11 +19,11 @@ let ls = new LocalStrategy({
             limit: 1,
             logging: false
         })
-            .then(function (user) {
-                if (user.length === 0) {
+            .then(function (users) {
+                if (users.length === 0) {
                     return done(null, false, {message: "invalid contact number"});
                 }
-                let user = user[0];
+                let user = users[0];
                 bcrypt.compare(password, user['password'], function(err, res) {
                     if(err){
                         return done(err);

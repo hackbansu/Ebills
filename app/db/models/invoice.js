@@ -9,12 +9,6 @@ module.exports = (sequelize, DataTypes) => {
                 isInt: true
             }
         },
-        shop_id:{
-
-        },
-        invoice_id:{
-
-        },
         total_price:{
             type: DataTypes.BIGINT.UNSIGNED,
             allowNull: false,
