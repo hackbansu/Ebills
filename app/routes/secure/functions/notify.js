@@ -10,8 +10,8 @@ module.exports = (json, pdf, html, token, cb) => {
         collapse_key: 'green',
 
         notification: {
-            title: 'Title of your push notification',
-            body: 'This is just a random message'
+            title: 'New Bill Available',
+            body: 'Tap to show'
         },
 
         data: {  //you can send only notification or only data(or include both)
