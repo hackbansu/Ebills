@@ -76,10 +76,10 @@ route.use('/file', function (req, res) {
             fs.readFile("./upload/abc.html", function (err, data) {
                 if (err) throw err;
                 console.log("HTML File read");
-                let htmlData = "https://3d9312ec.ngrok.io/abc.html"
+                let htmlData = `${process.env.DOMAIN}/abc.html`
                 let jsonData = JSON.stringify(updatedJsonData);
                 console.log(jsonData);
-                let pdfLink = "https://3d9312ec.ngrok.io/abc.pdf";
+                let pdfLink = `${process.env.DOMAIN}/abc.pdf`;
                 let token = "f75BEw6Jk-8:APA91bGbCm6aYzkeEjKIfwN1KX8gTfIlwh9DJ62XHXLUzxpYKCUFLwQTgC5-fMHtjW0Bq51NkU56nTVJBBHPXrlxo0n6AoeBBmaddKcVNaOfDaawN6QEBhX4BamiF3_1uM_ZFA0L8uEy";
                 notify(jsonData, pdfLink, htmlData, token, function (err) {
                     if(err) throw err;
