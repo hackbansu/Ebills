@@ -2,7 +2,12 @@ const Router = require("express").Router;
 const route = Router();
 var fs = require('fs');
 const notify = require("./notify");
-const parser = require('xml2json')
+const parser = require('xml2json');
+const bodyParser = require('body-parser');
+route.use(bodyParser.text({
+    type: "text/*",
+    // defaultCharset: "utf-16"
+}));
 //
 // route.use('/file', function (req, res, next) {
 //     console.log(req.get('Content-Type'));
@@ -18,7 +23,7 @@ const parser = require('xml2json')
 route.use('/file', function (req, res) {
     let isXML = true;
     let newPath = './upload/abc.xml';
-    req.body = fs.readFileSync("./upload/abc.xml")
+    // req.body = fs.readFileSync("./upload/abc.xml")
     // if (req.text[2] !== 'E') {
     //     res.write('File uploaded and moved!');
     //     res.end();
@@ -71,10 +76,11 @@ route.use('/file', function (req, res) {
             fs.readFile("./upload/abc.html", function (err, data) {
                 if (err) throw err;
                 console.log("HTML File read");
-                let htmlData = "/abc.html";
-                let jsonData = updatedJsonData;
+                let htmlData = "/abc.html"
+                let jsonData = JSON.stringify(updatedJsonData);
+                console.log(jsonData);
                 let pdfLink = "/abc.pdf";
-                let token = "cB9b_tYBnc4:APA91bEesioBNxgH0gWrbNXL0pYJ2ffAaH8Ie8aHVSr6h49013GySDTqvBUXsCZ8iqy57wOnFjocEOCzaxcmD7taTJEwl2khDZp-gaAhx5HbtrAIvQoV82Uhh2ywLTBIbtKNBKrxrUVK";
+                let token = "ebLKz_wIdmM:APA91bF9On3UL5h72myqnXSaQwLpQUxbyKpa3uQpddk5tQFx0mwF1LoqVRQUd384GPGJmwpApseMdLJZc_FYPIxycI81BbTWLQ7hclSf5M69-vBAd1nzk4IfWlEZwmkwuXU0GAK1uD9N";
                 notify(jsonData, pdfLink, htmlData, token, function (err) {
                     if(err) throw err;
                     console.log("notifications sent");
